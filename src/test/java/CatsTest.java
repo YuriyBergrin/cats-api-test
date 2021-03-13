@@ -1,6 +1,5 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
-import org.junit.Assert;
 import org.junit.Test;
 import steps.HttpSteps;
 

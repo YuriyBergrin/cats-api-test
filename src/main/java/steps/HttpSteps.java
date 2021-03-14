@@ -124,7 +124,7 @@ public class HttpSteps extends ApiConfig {
 	@Step("Сравним ответ сервиса с json-файлом")
 	public void assertResponseByFile(String filePath) {
 		try {
-			JSONAssert.assertEquals(new String(Files.readAllBytes(Paths.get(filePath))), response.asString(), JSONCompareMode.LENIENT);
+			JSONAssert.assertEquals(new String(Files.readAllBytes(Paths.get(filePath))), response.asString(), JSONCompareMode.NON_EXTENSIBLE);
 		} catch (IOException | JSONException e) {
 			e.printStackTrace();
 		}

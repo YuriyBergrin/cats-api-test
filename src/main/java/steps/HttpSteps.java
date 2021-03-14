@@ -108,7 +108,7 @@ public class HttpSteps extends ApiConfig {
 		getReportFile();
 	}
 
-	@Attachment(value = "Вложение", type = "application/json", fileExtension = ".txt")
+	@Attachment(value = "Отчет", type = "application/json", fileExtension = ".txt")
 	public static byte[] getReportFile() throws IOException {
 		return Files.readAllBytes(Paths.get("report.txt"));
 	}

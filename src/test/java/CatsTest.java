@@ -4,6 +4,7 @@ import org.junit.Test;
 import steps.HttpSteps;
 
 public class CatsTest extends HttpSteps {
+
 	@Feature(value = "Тесты кошачего api")
 	@Description(value = "Функционал - избранное")
 	@Test
@@ -33,6 +34,6 @@ public class CatsTest extends HttpSteps {
 	public void categoryTest() {
 		getRequest("categories/");
 		checkExistObject("boxes", "name");
+		assertResponseByFile("src/test/resources/response.json");
 	}
-
 }

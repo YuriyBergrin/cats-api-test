@@ -4,8 +4,11 @@ import configs.ApiConfig;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import org.json.JSONException;
 import org.junit.After;
 import org.junit.Assert;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,6 +94,11 @@ public class HttpSteps extends ApiConfig {
 		Assert.assertTrue(response.path(jsonpath).toString().contains(value));
 	}
 
+	@Step("Статус-код ответа должен быть равен {statusCode}")
+	public void checkStatusCode(int statusCode) {
+		Assert.assertEquals(statusCode, response.getStatusCode());
+	}
+
 	@Attachment(value = "result", type = "application/json")
 	public String returnString(String string) {
 		return string;
@@ -111,5 +119,15 @@ public class HttpSteps extends ApiConfig {
 	@Attachment(value = "Отчет", type = "application/json", fileExtension = ".txt")
 	public static byte[] getReportFile() throws IOException {
 		return Files.readAllBytes(Paths.get("report.txt"));
+	}
+
+	@Step("Сравним ответ сервиса с json-файлом")
+	public void assertResponseByFile(String filePath) {
+		try {
+			JSONAssert.assertEquals(new String(Files.readAllBytes(Paths.get(filePath))), response.asString(), JSONCompareMode.LENIENT);
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
